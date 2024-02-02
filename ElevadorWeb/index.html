@@ -5,36 +5,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elevador</title>
+    <style>
+        body {
+            background-color: #b3b3b3;
+            /* Cor cinza claro para representar o prédio */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 100vh;
+        }
+
+        #predio {
+            background-color: gray;
+            /* Cor cinza escuro para representar o prédio */
+            padding: 10px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .andar {
+            position: relative;
+            margin: 5px 0;
+        }
+
+        .elevador {
+            width: 80px;
+            height: 150px;
+            /* Ajuste a altura conforme necessário */
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: bottom 0.5s ease-in-out;
+        }
+
+        button {
+            margin-top: 5px;
+        }
+
+        /* Adicionando animação de subida e descida */
+        .subindo .elevador {
+            bottom: 100%;
+        }
+
+        .descendo .elevador {
+            bottom: 0;
+        }
+
+        img {
+            width: 50px;
+        }
+    </style>
 </head>
 
-<body>  
-    <div class="A6">
-
+<body>
+    <div id="predio">
+        <div class="andar" id="A6">6º Andar <button onclick="chamarElevador(6)">Chamar</button>
+            <div class="elevador" id="elevador-esquerda"><img src="img/close.jpg" alt=""></div>
+        </div>
+        <div class="andar" id="A5">5º Andar <button onclick="chamarElevador(5)">Chamar</button>
+            <div class="elevador" id="elevador-direita"><img src="img/close.jpg" alt=""></div>
+        </div>
+        <div class="andar" id="A4">4º Andar <button onclick="chamarElevador(4)">Chamar</button></div>
+        <div class="andar" id="A3">3º Andar <button onclick="chamarElevador(3)">Chamar</button></div>
+        <div class="andar" id="A2">2º Andar <button onclick="chamarElevador(2)">Chamar</button></div>
+        <div class="andar" id="A1">1º Andar <button onclick="chamarElevador(1)">Chamar</button></div>
+        <div class="andar" id="A0">Térreo <button onclick="chamarElevador(0)">Chamar</button></div>
+        <div class="andar" id="S1">1º Subsolo <button onclick="chamarElevador(-1)">Chamar</button></div>
+        <div class="andar" id="S2">2º Subsolo <button onclick="chamarElevador(-2)">Chamar</button></div>
     </div>
-    <div class="A5">
 
-    </div>
-    <div class="A4">
+    <script>
+        var elevadorEsquerda = {
+            andarAtual: 0,
+            moverPara: function (andar) {
+                var elevadorDiv = document.getElementById("elevador-esquerda");
+                var andarAtualDiv = document.getElementById("A" + this.andarAtual);
 
-    </div>
-    <div class="A3">
+                if (andar > this.andarAtual) {
+                    elevadorDiv.classList.remove("descendo");
+                    elevadorDiv.classList.add("subindo");
+                } else {
+                    elevadorDiv.classList.remove("subindo");
+                    elevadorDiv.classList.add("descendo");
+                }
 
-    </div>
-    <div class="A2">
+                elevadorDiv.style.bottom = andarAtualDiv.offsetTop + "px";
+                this.andarAtual = andar;
+                console.log("Elevador da esquerda movido para o " + this.andarAtual + "º andar.");
+            }
+        };
 
-    </div>
-    <div class="A1">
+        var elevadorDireita = {
+            andarAtual: 0,
+            moverPara: function (andar) {
+                var elevadorDiv = document.getElementById("elevador-direita");
+                var andarAtualDiv = document.getElementById("A" + this.andarAtual);
 
-    </div>
-    <div class="A0">
+                if (andar > this.andarAtual) {
+                    elevadorDiv.classList.remove("descendo");
+                    elevadorDiv.classList.add("subindo");
+                } else {
+                    elevadorDiv.classList.remove("subindo");
+                    elevadorDiv.classList.add("descendo");
+                }
 
-    </div>
-    <div class="S1">
+                elevadorDiv.style.bottom = andarAtualDiv.offsetTop + "px";
+                this.andarAtual = andar;
+                console.log("Elevador da direita movido para o " + this.andarAtual + "º andar.");
+            }
+        };
 
-    </div>
-    <div class="S2">
+        function chamarElevador(andar) {
+            var distanciaEsquerda = Math.abs(elevadorEsquerda.andarAtual - andar);
+            var distanciaDireita = Math.abs(elevadorDireita.andarAtual - andar);
 
-    </div>
+            if (distanciaEsquerda <= distanciaDireita) {
+                elevadorEsquerda.moverPara(andar);
+            } else {
+                elevadorDireita.moverPara(andar);
+            }
+        }
+    </script>
 </body>
 
 </html>
