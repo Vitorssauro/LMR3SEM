@@ -4,37 +4,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elevador</title>
+    <style>
+        body {
+            background-color: #d3d3d3;
+            /* cor cinza para o prédio */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #building {
+            display: flex;
+            flex-direction: column;
+            /* Organiza os andares em coluna */
+        }
+
+        .floor {
+            text-align: center;
+            margin: 10px;
+            display: flex;
+            flex-direction: row;
+            /* Organiza os elevadores em linha */
+        }
+
+        img {
+            width: 100px;
+            /* ajuste conforme necessário */
+            height: 100px;
+            /* ajuste conforme necessário */
+        }
+    </style>
 </head>
 
-<body>  
-    <div class="A6">
+<body>
 
+    <div id="building">
+        <div class="floor" id="floor6">
+            <img src="img/EClose.jpg" alt="">
+            <img src="img/EClose.jpg" alt="">
+            <button class="button" onclick="callElevator(6)">0</button>
+        </div>
+        <div class="floor" id="floor5">
+            <img src="img/EClose.jpg" alt="">
+            <img src="img/EClose.jpg" alt="">
+            <button class="button" onclick="callElevator(5)">0</button>
+        </div>
+        <div class="floor" id="floor4">
+            <img src="img/EClose.jpg" alt="">
+            <img src="img/EClose.jpg" alt="">
+            <button class="button" onclick="callElevator(4)">0</button>
+        </div>
+        <div class="floor" id="floor3">
+            <img src="img/EClose.jpg" alt="">
+            <img src="img/EClose.jpg" alt="">
+            <button class="button" onclick="callElevator(3)">0</button>
+        </div>
+        <div class="floor" id="floor2">
+            <img src="img/EClose.jpg" alt="">
+            <img src="img/EClose.jpg" alt="">
+            <button class="button" onclick="callElevator(2)">0</button>
+        </div>
+        <div class="floor" id="floor1">
+            <img src="img/EClose.jpg" alt="">
+            <img src="img/EClose.jpg" alt="">
+            <button class="button" onclick="callElevator(1)">0</button>
+        </div>
+        <div class="floor" id="floor0">
+            <img src="img/EClose.jpg" alt="">
+            <img src="img/EClose.jpg" alt="">
+            <button class="button" onclick="callElevator(0)">0</button>
+        </div>
     </div>
-    <div class="A5">
+    <script>
+        // Inicializa o estado do elevador
+        const elevatorState = {
+            currentFloor: 0,
+            light: true
+        };
 
-    </div>
-    <div class="A4">
+        function callElevator(targetFloor) {
+            // Desliga a luz do andar atual
+            elevatorState.light = false;
 
-    </div>
-    <div class="A3">
+            // Atualiza a representação visual
+            updateElevatorState();
 
-    </div>
-    <div class="A2">
+            // Atualiza o andar atual do elevador
+            elevatorState.currentFloor = targetFloor;
 
-    </div>
-    <div class="A1">
+            // Liga a luz no novo andar
+            elevatorState.light = true;
 
-    </div>
-    <div class="A0">
+            // Atualiza a representação visual
+            updateElevatorState();
 
-    </div>
-    <div class="S1">
 
-    </div>
-    <div class="S2">
+            // Simula o movimento do elevador
+            setTimeout(() => {
+                console.log(`Abrindo elevador para o andar ${targetFloor}`);
+                // Troca a imagem para indicar que o elevador está aberto
+                updateElevatorState('img/EOpen.jpg');
 
-    </div>
+                setTimeout(() => {
+                    console.log(`Fechando elevador para o andar ${targetFloor}`);
+                    // Troca a imagem para indicar que o elevador está fechado
+                    updateElevatorState('img/ELight.jpg');
+                }, 1000); // 1 segundo para fechar
+
+            }, 1000); // 1 segundo para abrir
+        }
+
+        function updateElevatorState(imgSrc = '') {
+            // Atualiza a representação visual do estado do elevador
+            const elevatorImages = document.getElementById(`floor${elevatorState.currentFloor}`).querySelectorAll('img');
+
+            // Atualiza a luz acesa
+            elevatorImages[0].src = elevatorState.light ? 'img/ELight.jpg' : 'img/EClose.jpg';
+            elevatorImages[1].src = elevatorState.light ? 'img/ELight.jpg' : 'img/EClose.jpg';
+
+            // Atualiza a imagem do elevador (se imgSrc for fornecido)
+            if (imgSrc) {
+                elevatorImages[0].src = imgSrc;
+                elevatorImages[1].src = imgSrc;
+            }
+        }
+
+        // Atualiza o estado inicial
+        updateElevatorState();
+    </script>
 </body>
 
 </html>
