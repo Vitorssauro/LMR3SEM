@@ -8,13 +8,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import Model.ToDo;
+import Model.TodoList;
 
 public class ToDoDAO {
     
     // atributo
     private Connection connection;
-    private List<ToDo> todoList;
+    private List<TodoList> todoList;
 
     // construtor
     public ToDoDAO() {
@@ -35,7 +35,7 @@ public class ToDoDAO {
     }
 
     // Listar todos os valores cadastrados
-    public List<ToDo> listarTodos() {
+    public List<TodoList> listarTodos() {
         PreparedStatement stmt = null;
         // Declaração do objeto PreparedStatement para executar a consulta
         ResultSet rs = null;
@@ -51,11 +51,11 @@ public class ToDoDAO {
             while (rs.next()) {
                 // Para cada registro no ResultSet, cria um objeto todo com os valores do registro
 
-                ToDo todoList = new todoList(
+                TodoList todoList = new todoList(
                         rs.getInt("id"),                        
                         rs.getString("tarefa"),
                         rs.getString("status"));
-                todoList.add(todoList); // Adiciona o objeto todo à lista de todo
+                todolist.add(todoList); // Adiciona o objeto todo à lista de todo
             }
         } catch (SQLException ex) {
             System.out.println(ex); // Em caso de erro durante a consulta, imprime o erro

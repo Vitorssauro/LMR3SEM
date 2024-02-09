@@ -19,13 +19,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 
-import Model.ToDo;
+import Model.TodoList;
 
 public class ToDoPainel extends JPanel {
     // Atributos(componentes)
     private JButton criar, apagar, editar;
     private JTextField idField, tarefaField, statusField;
-    private List<ToDo> todo;
+    private List<TodoList> todo;
     private JTable table;
     private DefaultTableModel tableModel;
     private int linhaSelecionada = -1;
@@ -117,7 +117,7 @@ public class ToDoPainel extends JPanel {
         tableModel.setRowCount(0); // Limpa todas as linhas existentes na tabela
         clientes = new ToDoDAO().listarTodos();
         // Obtém os clientes atualizados do banco de dados
-        for (ToDo cliente : clientes) {
+        for (TodoList cliente : clientes) {
             // Adiciona os dados de cada cliente como uma nova linha na tabela Swing
             tableModel.addRow(new Object[] { cliente.getNome(), cliente.getEndereco(), cliente.getFone(), cliente.getCpf() });
         }

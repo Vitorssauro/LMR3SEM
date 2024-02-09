@@ -1,13 +1,13 @@
 package Model;
 
-public class ToDo {
+public class TodoList {
     // atributos
     private int id;
     private String tarefa;
     private String status;
 
     // construtores
-    public ToDo(int id, String tarefa, String status, String cpf) {
+    public TodoList(int id, String tarefa, String status, String cpf) {
         this.id = id;
         this.tarefa = tarefa;
         this.status = status;
