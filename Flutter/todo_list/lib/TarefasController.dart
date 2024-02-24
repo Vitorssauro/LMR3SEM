@@ -11,8 +11,8 @@ class TarefasController extends ChangeNotifier {
 //Método para adicionar uma nova tarefa
   void adicionarTarefa(String descricao) {
     if (descricao.trim().isNotEmpty) {
-      _tarefas.add(Tarefa(descricao, false, getData() as DateTime));
-      // Notifica os ouvinter sobre a mudança no estado
+      _tarefas.add(Tarefa(descricao, false));
+      // Notifica os ouvintes sobre a mudança no estado
       notifyListeners();
     }
   }
@@ -33,9 +33,5 @@ class TarefasController extends ChangeNotifier {
       // Notifica os ouvinter sobre a mudança no estado
       notifyListeners();
     }
-  }
-
-  String getData() {
-    return DateFormat('dd/mm/yyyy HH:mm').format(_tarefas.last.dataHora);
   }
 }
