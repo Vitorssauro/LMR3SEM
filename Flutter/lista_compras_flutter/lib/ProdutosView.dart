@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:lista_compras_flutter/ProdutosController.dart';
 import 'package:provider/provider.dart';
 
-class ProdutosScreen extends StatelessWidget {
+class ProdutosScreen extends StatefulWidget {
+  @override
+  _ProdutosScreenState createState() => _ProdutosScreenState();
+}
+
+class _ProdutosScreenState extends State<ProdutosScreen> {
   // Controladores para os campos de texto
   final TextEditingController _nomeController = TextEditingController();
   final TextEditingController _precoController = TextEditingController();
   final TextEditingController _quantidadeController = TextEditingController();
+
+  String _errorMessage = '';
 
   @override
   Widget build(BuildContext context) {
@@ -55,23 +62,50 @@ class ProdutosScreen extends StatelessWidget {
                 // Ícone para adicionar produto ao pressionar o botão
                 IconButton(
                   onPressed: () {
-                    // Chamando o método adicionarProduto do Provider para atualizar o estado
-                    Provider.of<ProdutosController>(context, listen: false)
-                        .adicionarProduto(
-                      _nomeController.text,
-                      double.parse(_precoController.text),
-                      int.parse(_quantidadeController.text),
-                    );
-                    // Limpar os campos de texto após adicionar o produto
-                    _nomeController.clear();
-                    _precoController.clear();
-                    _quantidadeController.clear();
+                    // Validação dos campos de entrada
+                    if (_nomeController.text.trim().isEmpty ||
+                        _precoController.text.trim().isEmpty ||
+                        _quantidadeController.text.trim().isEmpty) {
+                      setState(() {
+                        _errorMessage = 'Por favor, preencha todos os campos.';
+                      });
+                    } else {
+                      try {
+                        // Chamando o método adicionarProduto do Provider para atualizar o estado
+                        Provider.of<ProdutosController>(context, listen: false)
+                            .adicionarProduto(
+                          _nomeController.text,
+                          double.parse(_precoController.text),
+                          int.parse(_quantidadeController.text),
+                        );
+                        // Limpar os campos de texto após adicionar o produto
+                        _nomeController.clear();
+                        _precoController.clear();
+                        _quantidadeController.clear();
+                        setState(() {
+                          _errorMessage = ''; // Limpar a mensagem de erro
+                        });
+                      } catch (e) {
+                        setState(() {
+                          _errorMessage = 'Erro ao adicionar o produto.';
+                        });
+                      }
+                    }
                   },
                   icon: Icon(Icons.add),
                 ),
               ],
             ),
           ),
+          // Exibição de mensagem de erro
+          if (_errorMessage.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                _errorMessage,
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
           // Lista de produtos usando um Consumer do Provider para atualização automática
           Expanded(
             child: Consumer<ProdutosController>(
