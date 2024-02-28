@@ -95,22 +95,16 @@ class ProdutosScreen extends StatelessWidget {
                         DataCell(
                           Row(
                             children: [
+                              Checkbox(
+                                value: model.produtos[index].comprado,
+                                onChanged: (value) {
+                                  // Chamando o método marcarComoConcluida do Provider para atualizar o estado
+                                  model.marcarComoComprado(index);
+                                },
+                              ),
                               IconButton(
                                 icon: Icon(Icons.edit),
-                                onPressed: () {
-                                  // Chamando o método alterarProduto do Provider para atualizar o estado
-                                  Provider.of<ProdutosController>(context,
-                                          listen: false)
-                                      .adicionarProduto(
-                                    _nomeController.text,
-                                    double.parse(_precoController.text),
-                                    int.parse(_quantidadeController.text),
-                                  );
-                                  // Limpar os campos de texto após adicionar o produto
-                                  _nomeController.clear();
-                                  _precoController.clear();
-                                  _quantidadeController.clear();
-                                },
+                                onPressed: () {},
                               ),
                               IconButton(
                                 icon: Icon(Icons.delete),
