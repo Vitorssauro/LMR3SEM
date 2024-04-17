@@ -6,7 +6,6 @@ import 'UserModel.dart';
 import 'ViewCadastro.dart';
 import 'ViewConfiguracoes.dart';
 
-
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -45,10 +44,10 @@ class _LoginFormState extends State<LoginForm> {
       try {
         User? user = await bancoDados.getUser(email, senha);
         if (user != null) {
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ConfiguracoesScreen(email: user.email),
+              builder: (context) => ConfiguracoesPage(email: user.email),
             ),
           );
         } else {
@@ -75,62 +74,64 @@ class _LoginFormState extends State<LoginForm> {
       padding: const EdgeInsets.all(20.0),
       child: Form(
         key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Login',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'Login',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            TextFormField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: 'E-mail'),
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return 'Por favor, insira seu e-mail';
-                } else if (!isValidEmail(value)) {
-                  return 'E-mail inválido';
-                }
-                return null;
-              },
-              inputFormatters: [
-                FilteringTextInputFormatter.deny(RegExp(r'[0-9]')),
-              ],
-            ),
-            SizedBox(height: 20),
-            TextFormField(
-              controller: _senhaController,
-              decoration: InputDecoration(labelText: 'Senha'),
-              obscureText: true,
-              validator: (value) {
-                if (value?.trim().isEmpty ?? true) {
-                  return 'Por favor, insira sua senha';
-                }
-                return null;
-              },
-            ),
-            SizedBox(height: 20),
-            _loading
-                ? CircularProgressIndicator()
-                : ElevatedButton(
-                    onPressed: _login,
-                    child: Text('Acessar'),
-                  ),
-            SizedBox(height: 20),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CadastroScreen()),
-                );
-              },
-              child: Text('Não tem uma conta? Cadastre-se'),
-            ),
-          ],
+              SizedBox(height: 20),
+              TextFormField(
+                controller: _emailController,
+                decoration: InputDecoration(labelText: 'E-mail'),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Por favor, insira seu e-mail';
+                  } else if (!isValidEmail(value)) {
+                    return 'E-mail inválido';
+                  }
+                  return null;
+                },
+                inputFormatters: [
+                  FilteringTextInputFormatter.deny(RegExp(r'[0-9]')),
+                ],
+              ),
+              SizedBox(height: 20),
+              TextFormField(
+                controller: _senhaController,
+                decoration: InputDecoration(labelText: 'Senha'),
+                obscureText: true,
+                validator: (value) {
+                  if (value?.trim().isEmpty ?? true) {
+                    return 'Por favor, insira sua senha';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 20),
+              _loading
+                  ? CircularProgressIndicator()
+                  : ElevatedButton(
+                      onPressed: _login,
+                      child: Text('Acessar'),
+                    ),
+              SizedBox(height: 20),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CadastroScreen()),
+                  );
+                },
+                child: Text('Não tem uma conta? Cadastre-se'),
+              ),
+            ],
+          ),
         ),
       ),
     );

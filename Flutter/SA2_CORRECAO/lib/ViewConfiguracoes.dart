@@ -1,41 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// ignore: must_be_immutable
-class ConfiguracoesScreen extends StatelessWidget {
-  late String email;
-
-  ConfiguracoesScreen({required String email});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: "Teste Shared Preferences",
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(brightness: Brightness.light),
-        darkTheme: ThemeData(brightness: Brightness.dark),
-        home: ConfiguracoesPage(email));
-  }
-}
-
-// ignore: must_be_immutable
 class ConfiguracoesPage extends StatefulWidget {
+  //atributo
+  final String email;
 
-  late String email;
-
-  ConfiguracoesPage(String email);
+  ConfiguracoesPage({required this.email});
 
   @override
-  _ConfiguracoesPageState createState() => _ConfiguracoesPageState(email);
+  _ConfiguracoesPageState createState() =>
+      _ConfiguracoesPageState(email: email);
 }
 
 class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
   //Atributos
-    
   late SharedPreferences _prefs;
-  bool $email_darkMode = false;
-  
-  _ConfiguracoesPageState(String email);
+  bool _darkMode = false;
+  final String email;
+  String _idioma = 'pt-br';
+
+  _ConfiguracoesPageState({required this.email});
 
   //Métodos
   @override
@@ -47,21 +31,29 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
   Future<void> _loadPreferences() async {
     _prefs = await SharedPreferences.getInstance();
     setState(() {
-      $email_darkMode = _prefs.getBool('darkMode') ?? false;
+      _darkMode = _prefs.getBool('${email}darkMode') ?? false;
+      _idioma = _prefs.getString('${email}SelIdioma') ?? 'pt-br';
     });
   }
 
-  Future<void> _mudancaDarkMode() async {
+  Future<void> _mudarDarkMode() async {
     setState(() {
-      $email_darkMode = !$email_darkMode;
+      _darkMode = !_darkMode;
     });
-    await _prefs.setBool('darkMode', $email_darkMode);
+    await _prefs.setBool('${email}darkMode', _darkMode);
+  }
+
+  Future<void> _mudarIdoma() async {
+    setState(() {
+      //api de mudança de idioma
+    });
+    await _prefs.setString('${email}SelIdioma', _idioma);
   }
 
   @override
   Widget build(BuildContext context) {
     return AnimatedTheme(
-      data: $email_darkMode
+      data: _darkMode
           ? ThemeData.dark()
           : ThemeData.light(), // Define o tema com base no modo escuro
       duration: Duration(milliseconds: 500), // Define a duração da transição
@@ -70,11 +62,37 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
           title: Text('Teste de Armazenamento Interno'),
         ),
         body: Center(
-          child: Switch(
-            value: $email_darkMode,
-            onChanged: (value) {
-              _mudancaDarkMode();
-            },
+          child: Column(
+            children: [
+              Text("Selecione o Modo Escuro"),
+              Switch(
+                value: _darkMode,
+                onChanged: (value) {
+                  _mudarDarkMode();
+                },
+              ),
+              Text("Selecione o Idioma"),
+              DropdownButton<String>(
+                value: _idioma,
+                onChanged: (value) {
+                  _mudarIdoma();
+                },
+                items: <DropdownMenuItem<String>>[
+                  DropdownMenuItem(
+                    value: 'pt-br',
+                    child: Text('Português (Brasil)'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'en-us',
+                    child: Text('Inglês (EUA)'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'es-ar',
+                    child: Text('Espanhol (Argentina)'),
+                  ),
+                ],
+              )
+            ],
           ),
         ),
       ),
