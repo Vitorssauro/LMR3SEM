@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'database_helper.dart';
-import 'task_screen.dart';
-import 'register_screen.dart';
+import 'package:sa3_vitor_jesus/View/TarefasView.dart';
+import '../Controller/DataBaseController.dart';
+import 'CadastroView.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginView extends StatefulWidget {
+  const LoginView({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _LoginViewState createState() => _LoginViewState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginViewState extends State<LoginView> {
   // Cria uma instância do DatabaseHelper para realizar operações de banco de dados
   final DatabaseHelper _dbHelper = DatabaseHelper();
   // Controladores de texto para capturar as entradas de nome de usuário e senha
@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => TaskScreen(userId: userId),
+          builder: (context) => TarefasView(userId: userId),
         ),
       );
     } else {
@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
             // Campo de texto para capturar o nome de usuário
             TextField(
               controller: _usernameController,
-              decoration: const InputDecoration(labelText: 'Nome de usuário'),
+              decoration: const InputDecoration(labelText: 'Usuário'),
             ),
             // Campo de texto para capturar a senha
             TextField(
@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
             // Botão para navegar para a tela de cadastro
             TextButton(
               onPressed: _navigateToRegister,
-              child: const Text('Criar conta'),
+              child: const Text('Não tem um usuário? Clique aqui!'),
             ),
           ],
         ),

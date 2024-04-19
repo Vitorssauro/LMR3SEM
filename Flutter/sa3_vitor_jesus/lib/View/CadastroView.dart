@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'database_helper.dart';
+import '../Controller/DataBaseController.dart';
 
 class RegisterScreen extends StatefulWidget {
     const RegisterScreen({Key? key}) : super(key: key);
@@ -45,7 +45,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Cadastro realizado com sucesso!')),
             );
-            // Retorna para a tela anterior (provavelmente a tela de login)
+            // Retorna para a tela anterior
             Navigator.pop(context);
         } catch (e) {
             ScaffoldMessenger.of(context).showSnackBar(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login_screen.dart';
+import 'View/LoginView.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,10 +10,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Lista de Tarefas',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.blueGrey,
       ),
-      home: LoginScreen(), // Define a Tela de Login como a tela inicial
+      home: LoginView(), // Define a Tela de Login como a tela inicial
     );
   }
 }
