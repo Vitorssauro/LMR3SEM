@@ -10,7 +10,11 @@
         "preco" : 49.90,
         "categoria" : "vestuario"
     },    
+<<<<<<< HEAD
      
+=======
+    
+>>>>>>> 8c250dcbb34b7d57fe8589b9ee41bee1bc577f8e
     {
         "nome" : "Mouse Pad",
         "preco" : 19.90,
