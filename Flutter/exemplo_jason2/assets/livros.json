@@ -1,0 +1,23 @@
+[
+    {
+        "titulo": "o fim da eternidade",
+        "autor": "Isaac Asimov",
+        "sinopse": "O fim da eternidade é um livro de fantasia",
+        "categoria": "fantasia",
+        "isbn": 9780593160022
+    },
+    {
+        "titulo":"O Morro dos Ventos Uivantes",
+        "autor":"Emily Bronte",
+        "sinopse":"O Morro dos Ventos Uivantes é um livro de ficçao",
+        "categoria":"Ficçao Científica",
+        "isbn":9780593160021
+    },
+    {
+        "titulo": "Memórias Póstuma de Brás Cubas",
+        "autor": "Machado de Assais",
+        "sinopse": "Memórias Póstuma de Brás Cubas é um livro de romance",
+        "categoria": "Romance Realista",
+        "isbn": 9780593160065
+    }
+]
