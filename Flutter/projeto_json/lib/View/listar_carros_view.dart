@@ -33,7 +33,7 @@ class _CarrosListarScreenState extends State<CarrosListarScreen> {
                       itemCount: controller.carroList.length,
                       itemBuilder: (context, index) {
                         return ListTile(
-                          leading: Image.file(controller.carroList[index].foto as File),
+                          leading: Image.file(File(controller.carroList[index].foto)),
                           title: Text(controller.carroList[index].modelo),
                           subtitle: Text(controller.carroList[index].marca),
                         );

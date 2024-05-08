@@ -25,6 +25,13 @@ class _CarroCadastroScreenState extends State<CarroCadastroScreen> {
 
   File? _imagemSelecionada;
 
+  CarrosController _controller = CarrosController();
+
+  @override
+  void initState() {
+    _controller.loadCarrosFromFile();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -171,7 +178,6 @@ class _CarroCadastroScreenState extends State<CarroCadastroScreen> {
         valor: double.parse(_valorController.text));
   }
 
-  CarrosController _controller = new CarrosController();
 
   void _limparValores() {
     _placaController.clear();
@@ -182,15 +188,15 @@ class _CarroCadastroScreenState extends State<CarroCadastroScreen> {
     _descricaoController.clear();
     _valorController.clear();
     _imagemSelecionada = null;
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
   void _cadastrarCarro() {
     // verificação
     //cadastro
     _controller.addCarro(criarObjeto());
+    //salvar
+    _controller.saveCarrosToFile();
     //limpar os campos
     _limparValores();
     //SnackBar
