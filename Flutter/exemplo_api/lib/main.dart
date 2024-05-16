@@ -12,8 +12,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Exemplo API",
-      theme: ThemeData(
+      title: "Exemplo API GEO",
+      home: HomeScreen(
         primarySwatch: Colors.blue
       ),
       home: WeatherScreen()
