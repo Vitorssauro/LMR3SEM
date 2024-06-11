@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "738044986487",
+    "project_id": "exemplo-firebase-86627",
+    "storage_bucket": "exemplo-firebase-86627.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:738044986487:android:76f9ae30f930457c9db272",
+        "android_client_info": {
+          "package_name": "br.com.vitorssauro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5Mt2Lk7HO1Wi4pVDOftGiaEZoJn8zgE8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
